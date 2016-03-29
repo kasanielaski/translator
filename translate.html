@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+	<style>
+		#copy{
+			position: absolute;
+			bottom: 0;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		$(function(){
+			$('#translate').on('click',function(){
+				var word=$('#startWord').val();
+				$.ajax({
+					url:"https://translate.yandex.net/api/v1.5/tr.json/translate",
+					dataType:"jsonp",
+					data:{
+						key: "trnsl.1.1.20160328T160035Z.f831d864b7d39013.7a54876c4185e9fb9d378adc4a36f33f6958df9c",
+						text: word,
+						lang: "en-ru"
+					}
+				}).then(function(data){					
+					$('#endWord').val(data.text[0]);
+				})
+			})
+			$('#clear').on('click',function(){
+				$('#startWord').val("");
+				$('#endWord').val("");
+			})
+		})
+	</script>
+	<div id='form'>
+		<p><input id="startWord"></p>
+		<p><Button id="translate">Перевести</Button>
+		<Button id="clear">Сброс</Button></p>
+		<p><input id="endWord"></p>
+		<div id="copy">
+			<a href="http://translate.yandex.ru/">«Переведено «Яндекс.Переводчиком»</a>
+		</div>
+	</div>	
+</body>
+</html>
